@@ -11,15 +11,11 @@ from nltk import WordNetLemmatizer
 from nltk import sent_tokenize
 from nltk import pos_tag
 
-# TO DO: Figure out elegant relative path import
-import sys
-
-sys.path.append("../../../src")
-from utils.timer import timer  # noqa
-from modules.processor import BaseProcessor  # noqa
+from ....utils.timer import timer
+from ..transformer import Transformer
 
 
-class NLTKTokenizer(BaseProcessor):
+class NLTKTokenizer(Transformer):
     @timer
     def setup(self, stopwords=None, punct=None, lower=True, strip=True):
         nltk.download("averaged_perceptron_tagger")
@@ -60,11 +56,11 @@ class NLTKTokenizer(BaseProcessor):
                     continue
 
                 yield token
-                '''
+                """
                 # Lemmatize the token and yield
                 lemma = self.lemmatize(token, tag)
                 yield lemma
-                '''
+                """
 
     def lemmatize(self, token, tag):
         tag = {"N": wn.NOUN, "V": wn.VERB, "R": wn.ADV, "J": wn.ADJ}.get(

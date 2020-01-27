@@ -1,23 +1,20 @@
 # https://github.com/huggingface/tokenizers
+import os
 import string
 
 from tokenizers import BertWordPieceTokenizer
 from nltk.corpus import stopwords as sw
+from ....utils.timer import timer
+from ..transformer import Transformer
 
-# TO DO: Figure out elegant relative path import
-import sys
-
-sys.path.append("../../../src")
-from utils.timer import timer  # noqa
-from modules.processor import BaseProcessor  # noqa
+dir_path = os.path.dirname(os.path.realpath(__file__))
+VOCAB_FILE = os.path.join(dir_path, "bert-base-uncased-vocab.txt")
 
 
-class BertTokenizer(BaseProcessor):
+class BertTokenizer(Transformer):
     @timer
     def setup(self, stopwords=None, punct=None, lower=True, strip=True):
-        self.tokenizer = BertWordPieceTokenizer(
-            "../modules/tokenizers/bert-base-uncased-vocab.txt", lowercase=lower
-        )
+        self.tokenizer = BertWordPieceTokenizer(VOCAB_FILE, lowercase=lower)
         self.punct = punct or set(string.punctuation)
         self.stopwords = stopwords or set(sw.words("english"))
 
@@ -33,7 +30,7 @@ class BertTokenizer(BaseProcessor):
         tokenized_text = self.tokenizer.encode(document)
         for token in tokenized_text.tokens:
             # If stopword, ignore token and continue
-            if token in self.stopwords or token == '[CLS]' or token == '[SEP]':
+            if token in self.stopwords or token == "[CLS]" or token == "[SEP]":
                 continue
 
             # If punctuation, ignore token and continue

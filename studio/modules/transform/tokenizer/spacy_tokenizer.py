@@ -1,16 +1,11 @@
 import string
-
 import spacy
 
-# TO DO: Figure out elegant relative path import
-import sys
-
-sys.path.append("../../../src")
-from utils.timer import timer  # noqa
-from modules.processor import BaseProcessor  # noqa
+from ....utils.timer import timer
+from ..transformer import Transformer
 
 
-class SpacyTokenizer(BaseProcessor):
+class SpacyTokenizer(Transformer):
     @timer
     def setup(self, stopwords=None, punct=None, lower=True, strip=True):
         spacy.cli.download("en_core_web_sm")

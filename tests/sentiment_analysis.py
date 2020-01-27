@@ -5,22 +5,18 @@ import pickle
 
 from sklearn.metrics import classification_report as clsr
 
-# TO DO: Figure out elegant relative path import
-import sys
+from context import studio
 
-sys.path.append("../../src")
-
-from modules.tokenizers.bert_tokenizer import BertTokenizer  # noqa
-from modules.tokenizers.nltk_tokenizer import NLTKTokenizer  # noqa
-from modules.tokenizers.spacy_tokenizer import SpacyTokenizer  # noqa
-from modules.classifiers.sklearn_svm import Sklearn_SVM  # noqa
-
-from data.dataset import Dataset
+from studio.modules.data.dataset import Dataset
+from studio.modules.transform.tokenizer.bert_tokenizer import BertTokenizer
+from studio.modules.transform.tokenizer.nltk_tokenizer import NLTKTokenizer
+from studio.modules.transform.tokenizer.spacy_tokenizer import SpacyTokenizer
+from studio.modules.modeling.classifiers.sklearn_svm import Sklearn_SVM
 
 
 def build_and_evaluate(X_train, X_test, y_train, y_test, outpath=None, verbose=True):
     # Create tokenizer
-    tokenizer = NLTKTokenizer()
+    tokenizer = BertTokenizer()
     tokenizer.setup()
 
     # SVM Classifier
@@ -77,7 +73,7 @@ if __name__ == "__main__":
     # dataset = Dataset('movie_reviews.tsv')
     # dataset.load_data('tsv')
     # dataset.write_data('review_copy.csv', 'csv')
-    dataset = Dataset("../data/review_copy.csv")
+    dataset = Dataset("./data/review_copy.csv")
     dataset.load_data("csv")
     X, y = dataset.get_modeling_data("text", "sentiment")
     X_train, X_test, y_train, y_test = Dataset.split_data(X, y, 0.2, 1)

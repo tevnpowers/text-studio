@@ -10,15 +10,11 @@ from sklearn.metrics import classification_report as clsr
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split as tts
 
-# TO DO: Figure out elegant relative path import
-import sys
-
-sys.path.append("../../../src")
-from utils.timer import timer  # noqa
-from modules.processor import BaseProcessor  # noqa
+from ....utils.timer import timer
+from ...transform.transformer import Transformer  # noqa
 
 
-class Sklearn_SVM(BaseProcessor):
+class Sklearn_SVM(Transformer):
     @timer
     def setup(self):
         """Initialize all parameter values for the processor's settings."""
