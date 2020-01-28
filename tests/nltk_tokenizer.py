@@ -11,8 +11,8 @@ from nltk import WordNetLemmatizer
 from nltk import sent_tokenize
 from nltk import pos_tag
 
-from ....utils.timer import timer
-from ..transformer import Transformer
+from studio.utils.timer import timer
+from studio.transformer import Transformer
 
 
 class NLTKTokenizer(Transformer):

@@ -10,8 +10,8 @@ from sklearn.metrics import classification_report as clsr
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split as tts
 
-from ....utils.timer import timer
-from ...transform.transformer import Transformer  # noqa
+from studio.utils.timer import timer
+from studio.transformer import Transformer  # noqa
 
 
 class Sklearn_SVM(Transformer):

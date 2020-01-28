@@ -1,8 +1,8 @@
 import string
 import spacy
 
-from ....utils.timer import timer
-from ..transformer import Transformer
+from studio.utils.timer import timer
+from studio.transformer import Transformer
 
 
 class SpacyTokenizer(Transformer):

@@ -7,11 +7,11 @@ from sklearn.metrics import classification_report as clsr
 
 from context import studio
 
-from studio.modules.data.dataset import Dataset
-from studio.modules.transform.tokenizer.bert_tokenizer import BertTokenizer
-from studio.modules.transform.tokenizer.nltk_tokenizer import NLTKTokenizer
-from studio.modules.transform.tokenizer.spacy_tokenizer import SpacyTokenizer
-from studio.modules.modeling.classifiers.sklearn_svm import Sklearn_SVM
+from studio.dataset import Dataset
+from bert_tokenizer import BertTokenizer
+from nltk_tokenizer import NLTKTokenizer
+from spacy_tokenizer import SpacyTokenizer
+from sklearn_svm import Sklearn_SVM
 
 
 def build_and_evaluate(X_train, X_test, y_train, y_test, outpath=None, verbose=True):
