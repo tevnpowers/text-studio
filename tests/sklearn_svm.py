@@ -1,23 +1,20 @@
-# This module is inspired by the tutorial posted at:
-# https://bbengfort.github.io/tutorials/2016/05/19/text-classification-nltk-sckit-learn.html
-
 import pickle
 
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import SGDClassifier
-from sklearn.metrics import classification_report as clsr
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.model_selection import train_test_split as tts
 
 from studio.utils.timer import timer
-from studio.transformer import Transformer  # noqa
+from studio.model import Model
 
 
-class Sklearn_SVM(Transformer):
+class Sklearn_SVM(Model):
     @timer
-    def setup(self):
+    def setup(self, tokenizer=None, lowercase=False):
         """Initialize all parameter values for the processor's settings."""
+        self.tokenizer = tokenizer if tokenizer else self._identity
+        self.lowercase = lowercase
         return self
 
     @timer
@@ -30,7 +27,7 @@ class Sklearn_SVM(Transformer):
                 (
                     "vectorizer",
                     TfidfVectorizer(
-                        tokenizer=self._identity, preprocessor=None, lowercase=False
+                        tokenizer=self.tokenizer, lowercase=self.lowercase
                     ),
                 ),
                 ("classifier", SGDClassifier()),
