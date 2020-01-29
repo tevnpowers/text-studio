@@ -35,11 +35,11 @@ class Model(object):
         """
         Serialize and write a model to disk
         """
-        raise NotImplementedError("Save function not implemented.") 
+        raise NotImplementedError("Save function not implemented.")
 
     @abc.abstractmethod
     def load(self, filepath):
         """
         Load a model from disk and deserialize.
         """
-        raise NotImplementedError("Load function not implemented.") 
+        raise NotImplementedError("Load function not implemented.")
