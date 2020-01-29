@@ -26,9 +26,7 @@ class Sklearn_SVM(Model):
             [
                 (
                     "vectorizer",
-                    TfidfVectorizer(
-                        tokenizer=self.tokenizer, lowercase=self.lowercase
-                    ),
+                    TfidfVectorizer(tokenizer=self.tokenizer, lowercase=self.lowercase),
                 ),
                 ("classifier", SGDClassifier()),
             ]
