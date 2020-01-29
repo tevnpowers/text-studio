@@ -14,7 +14,6 @@ class Transformer(object):
     @abc.abstractmethod
     def process_instance(self, doc):
         """Process and return a single text document."""
-        pass
 
     @abc.abstractmethod
     def process_batch(self, docs):
