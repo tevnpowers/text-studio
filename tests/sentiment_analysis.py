@@ -63,17 +63,7 @@ def build_and_evaluate(X_train, X_test, y_train, y_test, outpath=None, verbose=T
 
 
 if __name__ == "__main__":
-    """
-    X = [reviews.raw(fileid) for fileid in reviews.fileids()]
-    y = [reviews.categories(fileid)[0] for fileid in reviews.fileids()]
-    PATH = None
-    model = build_and_evaluate(X, y, outpath=PATH)
-    """
-
-    # dataset = Dataset('movie_reviews.tsv')
-    # dataset.load_data('tsv')
-    # dataset.write_data('review_copy.csv', 'csv')
-    dataset = Dataset("./data/review_copy.csv")
+    dataset = Dataset("./data/moview_reviews.tsv")
     dataset.load_data("csv")
     X, y = dataset.get_modeling_data("text", "sentiment")
     X_train, X_test, y_train, y_test = Dataset.split_data(X, y, 0.2, 1)
