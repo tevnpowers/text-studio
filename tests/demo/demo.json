@@ -1,0 +1,14 @@
+{
+    "metadata": {
+        "author":"Tev'n Powers",
+        "created":"",
+        "saved":""
+    },
+    "data": [
+        "../data/story_content.csv"
+    ],
+    "modules": [
+    ],
+    "pipelines": [
+    ]
+}
