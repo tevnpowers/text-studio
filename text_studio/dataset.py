@@ -1,11 +1,14 @@
 import csv
+import sys
 from sklearn.model_selection import train_test_split as tts
 
+csv.field_size_limit(sys.maxsize)
 
 class Dataset(object):
     def __init__(self, filename=""):
         self.filename = filename
         self.instances = []
+        self.loaded = False
 
     def get_modeling_data(self, text_key, label_key):
         x = [instance[text_key] for instance in self.instances]
@@ -30,6 +33,7 @@ class Dataset(object):
                 for row in reader:
                     instances.append(row)
             self.instances = instances
+            self.loaded = True
 
     def write_data(self, filename, format):
         delimiter = self.get_delimiter(format)
