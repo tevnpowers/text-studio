@@ -5,8 +5,8 @@ import string
 from tokenizers import BertWordPieceTokenizer
 from nltk.corpus import stopwords as sw
 
-from studio.utils.timer import timer
-from studio.transformer import Transformer
+from text_studio.utils.timer import timer
+from text_studio.transformer import Transformer
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 VOCAB_FILE = os.path.join(dir_path, "data", "bert-base-uncased-vocab.txt")

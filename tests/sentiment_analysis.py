@@ -5,9 +5,9 @@ import pickle
 
 from sklearn.metrics import classification_report as clsr
 
-from context import studio
+from context import text_studio
 
-from studio.dataset import Dataset
+from text_studio.dataset import Dataset
 from bert_tokenizer import BertTokenizer
 from nltk_tokenizer import NLTKTokenizer
 from spacy_tokenizer import SpacyTokenizer
@@ -63,8 +63,8 @@ def build_and_evaluate(X_train, X_test, y_train, y_test, outpath=None, verbose=T
 
 
 if __name__ == "__main__":
-    dataset = Dataset("./data/moview_reviews.tsv")
-    dataset.load_data("csv")
+    dataset = Dataset("./data/movie_reviews.tsv")
+    dataset.load_data("tsv")
     X, y = dataset.get_modeling_data("text", "sentiment")
     X_train, X_test, y_train, y_test = Dataset.split_data(X, y, 0.2, 1)
     model = build_and_evaluate(X_train, X_test, y_train, y_test, outpath=None)

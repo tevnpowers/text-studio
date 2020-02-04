@@ -5,8 +5,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import SGDClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from studio.utils.timer import timer
-from studio.model import Model
+from text_studio.utils.timer import timer
+from text_studio.model import Model
 
 
 class Sklearn_SVM(Model):
