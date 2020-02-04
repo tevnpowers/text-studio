@@ -42,7 +42,7 @@ class Project(object):
     def directory(self):
         if self.filepath:
             return os.path.dirname(self.filepath)
-        return ''
+        return ""
 
     def save(self, filepath):
         self.metadata["saved"] = get_current_time()
@@ -76,7 +76,8 @@ class Project(object):
 
     def load_datasets(self):
         for dataset in self.datasets:
-            dataset.load_data('csv')
+            dataset.load_data("csv")
+
 
 def get_current_time():
     return datetime.now().isoformat(timespec="minutes")
