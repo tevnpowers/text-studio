@@ -11,12 +11,10 @@ from nltk import WordNetLemmatizer
 from nltk import sent_tokenize
 from nltk import pos_tag
 
-from text_studio.utils.timer import timer
 from text_studio.transformer import Transformer
 
 
 class NLTKTokenizer(Transformer):
-    @timer
     def setup(self, stopwords=None, punct=None, lower=True, strip=True):
         nltk.download("averaged_perceptron_tagger")
         nltk.download("punkt")
@@ -27,15 +25,10 @@ class NLTKTokenizer(Transformer):
         self.punct = punct or set(string.punctuation)
         # self.lemmatizer = WordNetLemmatizer()
 
-    @timer
     def process_batch(self, X):
-        return [list(self.process_instance(doc)) for doc in X]
+        return [list(self.process_single(doc)) for doc in X]
 
-    @timer
     def process_single(self, document):
-        return self.process_instance(document)
-
-    def process_instance(self, document):
         # Break the document into sentences
         for sent in sent_tokenize(document):
             # Break the sentence into part of speech tagged tokens

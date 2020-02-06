@@ -12,10 +12,11 @@ class Transformer(object):
         """Initialize all parameter values for the processor's settings."""
 
     @abc.abstractmethod
-    def process_instance(self, doc):
+    def process_single(self, doc):
         """Process and return a single text document."""
 
     @abc.abstractmethod
     def process_batch(self, docs):
         """Process and return an entire dataset of text documents."""
-        return [list(self.process_instance(doc)) for doc in docs]
+        for doc in docs:
+            yield self.process_single(doc)

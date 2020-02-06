@@ -8,50 +8,32 @@ from sklearn.metrics import classification_report as clsr
 from context import text_studio
 
 from text_studio.dataset import Dataset
-from bert_tokenizer import BertTokenizer
-from nltk_tokenizer import NLTKTokenizer
-from spacy_tokenizer import SpacyTokenizer
+from tokenizer_bert import BertTokenizer
+from tokenizer_nltk import NLTKTokenizer
+from tokenizer_spacy import SpacyTokenizer
 from sklearn_svm import Sklearn_SVM
 
 
-def build_and_evaluate(X_train, X_test, y_train, y_test, outpath=None, verbose=True):
+def build_and_evaluate(X_train, X_test, y_train, y_test, outpath=None):
     # Create tokenizer
     tokenizer = BertTokenizer()
     tokenizer.setup()
 
     # SVM Classifier
     svm = Sklearn_SVM()
-    svm, secs = svm.setup()
+    svm = svm.setup()
 
-    # Begin evaluation
-    if verbose:
-        print("Building for evaluation")
+    train_tokenized = tokenizer.process_batch(X_train)
 
-    # tokenize data
-    train_tokenized, secs = tokenizer.process_batch(X_train)
-    print("Time to preprocess training data: {}".format(secs))
-
+    print("Training model......")
     svm.fit(train_tokenized, y_train)
 
-    if verbose:
-        # print("Evaluation model fit in {:0.3f} seconds".format(secs))
-        print("Classification Report:\n")
+    print("Predicting test data...")
+    test_tokenized = tokenizer.process_batch(X_test)
+    y_pred = svm.process_batch(test_tokenized)
 
-    test_tokenized, secs = tokenizer.process_batch(X_test)
-    print("Time to preprocess test data: {}".format(secs))
-    y_pred, secs = svm.process_batch(test_tokenized)
+    print("Classification Report:\n")
     print(clsr(y_test, y_pred, target_names=set(y)))
-
-    if verbose:
-        print("Building complete model and saving ...")
-
-    """
-    svm.fit(train_tokenized + test_tokenized, y_train + y_test)
-    model.labels_ = labels
-
-    if verbose:
-        print("Complete model fit in {:0.3f} seconds".format(secs))
-    """
 
     if outpath:
         with open(outpath, "wb") as f:
