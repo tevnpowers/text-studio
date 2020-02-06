@@ -86,7 +86,7 @@ def get_current_time():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process some text.")
     parser.add_argument(
-        "project",
+        "--project",
         metavar="p",
         type=str,
         nargs=1,
@@ -94,4 +94,7 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    project = Project(args.project[0])
+    if args.project:
+        project = Project(args.project[0])
+    else:
+        print('CLI for Text Studio')
