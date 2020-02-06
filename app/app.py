@@ -8,6 +8,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")
 
 import text_studio  # noqa
 from text_studio.dataset import Dataset
+from extensions.html_parser import HtmlParser
 
 METADATA_KEYS = ["author", "created", "saved"]
 
@@ -24,19 +25,16 @@ class Project(object):
             "pipelines": [],
         }
 
-        self.datasets = []
-        self.modules = []
-        self.pipelines = []
+        self.datasets = {}
+        self.modules = {}
+        self.pipelines = {}
 
         if filepath:
             with open(filepath, "r") as f:
                 content = json.loads(f.read())
                 self.parse_config(content)
 
-        print(self.metadata)
         self.load_datasets()
-        print(self.datasets)
-        print(self.datasets[0].loaded)
 
     @property
     def directory(self):
@@ -62,22 +60,40 @@ class Project(object):
                 self.add_module(module)
 
         if "pipelines" in config:
-            for pipeline in config["pipelines"]:
-                self.add_pipeline(pipeline)
+            for name in config["pipelines"]:
+                self.add_pipeline(name, config["pipelines"][name])
 
     def add_dataset(self, filepath):
-        self.datasets.append(Dataset(os.path.join(self.directory, filepath)))
+        self.datasets[filepath] = Dataset(os.path.join(self.directory, filepath))
 
-    def add_module(self, module):
-        pass
+    def add_module(self, module_info):
+        if module_info["name"] == "HtmlParser":
+            kwargs = module_info["config"]
+            module = HtmlParser()
+            module.setup(**kwargs)
+            self.modules[module_info["id"]] = module
 
-    def add_pipeline(self, pipeline):
-        pass
+    def add_pipeline(self, name, info):
+        pipeline = []
+        for module_dict in info:
+            module = self.modules[module_dict["id"]]
+            output = module_dict["output"]
+            pipeline.append((module, output))
+        self.pipelines[name] = pipeline
 
     def load_datasets(self):
-        for dataset in self.datasets:
+        for fielname, dataset in self.datasets.items():
             dataset.load_data("csv")
 
+    def run_pipeline(self, pipe_name, dataset_path):
+        data = self.datasets[dataset_path].instances[:]
+        pipeline = self.pipelines[pipe_name]
+        for module, annotation in pipeline:
+            i = 0
+            for result in module.process_batch(data):
+                data[i][annotation] = result
+                i += 1
+            self.datasets[dataset_path].instances = data
 
 def get_current_time():
     return datetime.now().isoformat(timespec="minutes")
@@ -95,6 +111,16 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     if args.project:
+        print("Loading project...")
         project = Project(args.project[0])
+
+        print("Running FanFict pipeline...")
+        project.run_pipeline("FanFict", "../data/story_content.csv")
     else:
-        print('CLI for Text Studio')
+        print("*" * 21)
+        print("*CLI for Text Studio*")
+        print("*" * 21)
+        print("\n")
+        print(parser.description)
+        parser.print_usage()
+        print("\n")

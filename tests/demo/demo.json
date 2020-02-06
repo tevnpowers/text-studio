@@ -1,14 +1,28 @@
 {
     "metadata": {
         "author":"Tev'n Powers",
-        "created":"",
-        "saved":""
+        "created":"'2020-02-05T70:00'",
+        "saved":"'2020-02-06T00:50'"
     },
     "data": [
         "../data/story_content.csv"
     ],
     "modules": [
+        {
+            "id": "4991a5d6-b64c-4dd6-bedc-87b354b575bf",
+            "name": "HtmlParser",
+            "path": "html_parser.py",
+            "config": {
+                "key": "story_content_content"
+            }
+        }
     ],
-    "pipelines": [
-    ]
+    "pipelines": {
+        "FanFict": [
+            {
+                "id": "4991a5d6-b64c-4dd6-bedc-87b354b575bf",
+                "output": "text"
+            }
+        ]
+    }
 }
