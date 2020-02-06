@@ -5,19 +5,16 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.linear_model import SGDClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from text_studio.utils.timer import timer
 from text_studio.model import Model
 
 
 class Sklearn_SVM(Model):
-    @timer
     def setup(self, tokenizer=None, lowercase=False):
         """Initialize all parameter values for the processor's settings."""
         self.tokenizer = tokenizer if tokenizer else self._identity
         self.lowercase = lowercase
         return self
 
-    @timer
     def fit(self, X, y):
         """
         Inner build function that builds a single model.
@@ -36,12 +33,10 @@ class Sklearn_SVM(Model):
         self.model = model
         return self.model
 
-    @timer
     def process_instance(self, doc):
         """Process and return a single text document."""
         return self.process_batch([doc])[0]
 
-    @timer
     def process_batch(self, docs):
         """Process and return an entire dataset of text documents."""
         if self.model:
@@ -52,7 +47,6 @@ class Sklearn_SVM(Model):
     def _identity(self, text):
         return text
 
-    @timer
     def encode_labels(self, y):
         # Label encode the targets
         self.labels = LabelEncoder()
