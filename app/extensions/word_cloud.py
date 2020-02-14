@@ -1,5 +1,3 @@
-import os
-
 from os import path
 from wordcloud import WordCloud
 from text_studio.action import Action
@@ -14,7 +12,9 @@ class WordCloudGenerator(Action):
         text = doc[text_key]
         wordcloud = WordCloud().generate(text)
 
-        file_name = path.join(path.dirname(out_path), "{}.png".format(doc[id_key]))
+        file_name = path.join(
+            path.dirname(out_path), "{}.png".format(doc[id_key])
+        )
         wordcloud.to_file(file_name)
 
     def process_batch(self, docs, out_path):

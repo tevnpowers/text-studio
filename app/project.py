@@ -135,7 +135,9 @@ class Project(object):
         elif id in self.actions:
             self._run_action(id, instances, output_data_path, verbose)
         elif id in self.pipelines:
-            instances = self._run_pipeline(id, instances, output_data_path, verbose)
+            instances = self._run_pipeline(
+                id, instances, output_data_path, verbose
+            )
         else:
             raise KeyError(
                 "The provided ID does not exist in project modules or pipelines."
