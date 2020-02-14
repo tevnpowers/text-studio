@@ -128,14 +128,10 @@ class Project(object):
         if verbose:
             print("Executing module {}...".format(module.name))
 
-        i = 0
-        for results in module.process_batch(data):
-            assert len(results) == len(module.annotations)
-            for j in range(len(results)):
-                data[i][module.annotations[j]] = results[j]
-            i += 1
-
-        return data
+        output = []
+        for result in module.process_batch(data):
+            output.append(result)
+        return output
 
     def _run_pipeline(self, id, data, verbose=False):
         print("Executing pipeline {}...".format(self.pipelines[id].name))

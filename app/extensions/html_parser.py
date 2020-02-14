@@ -31,8 +31,9 @@ class HtmlParser(Transformer):
 
     def process_single(self, document):
         self.clear()
-        self.parser.feed(self.document_text(document))
-        return (self.parser.content,)
+        self.parser.feed(self.get_document_html(document))
+        document["text"] = self.parser.content
+        return document
 
-    def document_text(self, document):
+    def get_document_html(self, document):
         return document[self.keys[0]] if self.keys else document
