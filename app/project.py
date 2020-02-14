@@ -45,6 +45,12 @@ class Project(object):
 
         self.load_datasets()
 
+    def get_project_component_descriptions(self, heading, collection):
+        description = "\n{}:\n----------\n".format(heading)
+        for id, component in collection.items():
+            description += "{}\t\t{}\n".format(component.name, id)
+        return description
+
     def __repr__(self):
         description = "Author: {}\nCreated: {}\nSaved: {}\n".format(
             self.metadata["author"],
@@ -52,7 +58,26 @@ class Project(object):
             self.metadata["saved"],
         )
 
-        # TO DO: Add output info for datasets, modules, actions & pipelines.
+        if self.datasets:
+            description += "\nDatasets:\n----------\n"
+            for id, dataset in self.datasets.items():
+                description += "{}\t\t{}\n".format(dataset.file_path, id)
+
+        if self.modules:
+            description += self.get_project_component_descriptions(
+                "Modules", self.modules
+            )
+
+        if self.actions:
+            description += self.get_project_component_descriptions(
+                "Actions", self.actions
+            )
+
+        if self.pipelines:
+            description += self.get_project_component_descriptions(
+                "Pipelines", self.pipelines
+            )
+
         return description
 
     @property
