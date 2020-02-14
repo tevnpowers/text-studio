@@ -5,7 +5,10 @@
         "saved":"'2020-02-06T00:50'"
     },
     "data": [
-        "../data/story_content.csv"
+        {
+            "id": "5eacbf07-d9b8-4d02-b674-8badb7703e2a",
+            "path": "../data/story_content.csv"
+        }
     ],
     "modules": [
         {
@@ -13,16 +16,19 @@
             "name": "HtmlParser",
             "path": "html_parser.py",
             "config": {
-                "key": "story_content_content"
+                "name": "Html Parser",
+                "key": "story_content_content",
+                "annotation": "text"
             }
         }
     ],
-    "pipelines": {
-        "FanFict": [
-            {
-                "id": "4991a5d6-b64c-4dd6-bedc-87b354b575bf",
-                "output": "text"
-            }
-        ]
-    }
+    "pipelines": [
+        {
+            "id": "b2e347ed-7a77-46e1-a024-0f8e43ec3a6c",
+            "name": "FanFict",
+            "modules": [
+                "4991a5d6-b64c-4dd6-bedc-87b354b575bf"
+            ]
+        }
+    ]
 }
