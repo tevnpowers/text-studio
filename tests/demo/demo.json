@@ -8,6 +8,10 @@
         {
             "id": "5eacbf07-d9b8-4d02-b674-8badb7703e2a",
             "path": "../data/story_content.csv"
+        },
+        {
+            "id": "cf9c5dac-0f8d-4a57-a176-9130068f48f1",
+            "path": "../data/story_content_cleaned.csv"
         }
     ],
     "modules": [
@@ -20,6 +24,16 @@
                 "keys": ["story_content_content"],
                 "annotations": ["text"]
             }
+        },
+        {
+            "id": "630a1ed2-fa02-441a-bf89-ee708c7529a0",
+            "name": "Accumulator",
+            "path": "accumulator.py",
+            "config": {
+                "name": "Accumulator",
+                "keys": ["story_fandom_id", "text"],
+                "annotations": ["id", "text"]
+            }
         }
     ],
     "pipelines": [
@@ -27,7 +41,8 @@
             "id": "b2e347ed-7a77-46e1-a024-0f8e43ec3a6c",
             "name": "FanFict",
             "modules": [
-                "4991a5d6-b64c-4dd6-bedc-87b354b575bf"
+                "4991a5d6-b64c-4dd6-bedc-87b354b575bf",
+                "630a1ed2-fa02-441a-bf89-ee708c7529a0"
             ]
         }
     ]
