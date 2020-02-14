@@ -12,6 +12,10 @@
         {
             "id": "cf9c5dac-0f8d-4a57-a176-9130068f48f1",
             "path": "../data/story_content_cleaned.csv"
+        },
+        {
+            "id": "857292df-7cb7-4d17-a95a-bd570be378be",
+            "path": "../data/fandoms.csv"
         }
     ],
     "modules": [
@@ -36,13 +40,25 @@
             }
         }
     ],
+    "actions": [
+        {
+            "id": "caeadf1d-40b5-4ba1-8817-5d890ad5c3bc",
+            "name": "WordCloud",
+            "path": "word_cloud.py",
+            "config": {
+                "name": "Word Cloud",
+                "keys": ["id", "text"]
+            }
+        }
+    ],
     "pipelines": [
         {
             "id": "b2e347ed-7a77-46e1-a024-0f8e43ec3a6c",
             "name": "FanFict",
-            "modules": [
+            "components": [
                 "4991a5d6-b64c-4dd6-bedc-87b354b575bf",
-                "630a1ed2-fa02-441a-bf89-ee708c7529a0"
+                "630a1ed2-fa02-441a-bf89-ee708c7529a0",
+                "caeadf1d-40b5-4ba1-8817-5d890ad5c3bc"
             ]
         }
     ]
