@@ -1,2 +1,2 @@
 code:
-	black .
+	black . --line-length 79
