@@ -24,6 +24,7 @@ def print_help():
     print(
         "Commands:\n"
         + "help (h)\t\t\tShow help.\n"
+        + "info (i)\t\t\tShow project info\n"
         + "project (p) <file path>\t\tCreate a project or open the project at the specified file path.\n"
         + "run (r) <id>\t\t\tRun the project module or pipeline with the specified ID.\n"
         + "save (s) <file path>\t\tSave a project to its current file or the provided file path.\n"
@@ -53,6 +54,11 @@ if __name__ == "__main__":
 
             if project:
                 print(project)
+        elif command == "info" or command == "i":
+            if project:
+                print(project)
+            else:
+                print('Run "project" command to load a project.')
         elif command == "run" or command == "r":
             if project:
                 module_id = None
