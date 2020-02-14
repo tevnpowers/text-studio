@@ -8,8 +8,12 @@ class Transformer(object):
         self.metadata = None
 
     @abc.abstractmethod
-    def setup(self):
+    def setup(self, *, id, name, key, annotation):
         """Initialize all parameter values for the processor's settings."""
+        self.id = id
+        self.name = name
+        self.key = key
+        self.annotation = annotation
 
     @abc.abstractmethod
     def process_single(self, doc):

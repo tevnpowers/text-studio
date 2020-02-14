@@ -6,8 +6,9 @@ csv.field_size_limit(sys.maxsize)
 
 
 class Dataset(object):
-    def __init__(self, filename=""):
-        self.filename = filename
+    def __init__(self, id, file_path=""):
+        self.id = id
+        self.file_path = file_path
         self.instances = []
         self.loaded = False
 
@@ -27,16 +28,16 @@ class Dataset(object):
             # TO DO: throw exception
             return
 
-        if self.filename:
+        if self.file_path:
             instances = []
-            with open(self.filename, "r") as csvfile:
+            with open(self.file_path, "r") as csvfile:
                 reader = csv.DictReader(csvfile, delimiter=delimiter)
                 for row in reader:
                     instances.append(row)
             self.instances = instances
             self.loaded = True
 
-    def write_data(self, filename, format):
+    def write_data(self, file_path, format):
         delimiter = self.get_delimiter(format)
         if not delimiter:
             # TO DO: throw exception
@@ -44,7 +45,7 @@ class Dataset(object):
 
         if self.instances:
             keys = self.instances[0].keys()
-            with open(filename, "w") as outputfile:
+            with open(file_path, "w") as outputfile:
                 writer = csv.DictWriter(
                     outputfile, delimiter=delimiter, fieldnames=keys
                 )
@@ -52,6 +53,10 @@ class Dataset(object):
                 writer.writeheader()
                 for instance in self.instances:
                     writer.writerow(instance)
+
+    def save(self):
+        print("Saving dataset {}...".format(self.file_path))
+        self.write_data(self.file_path, "csv")
 
     def get_delimiter(self, format):
         if format == "csv":
