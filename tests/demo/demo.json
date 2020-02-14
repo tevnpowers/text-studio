@@ -17,8 +17,8 @@
             "path": "html_parser.py",
             "config": {
                 "name": "Html Parser",
-                "key": "story_content_content",
-                "annotation": "text"
+                "keys": ["story_content_content"],
+                "annotations": ["text"]
             }
         }
     ],
