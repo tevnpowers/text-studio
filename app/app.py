@@ -39,15 +39,20 @@ if __name__ == "__main__":
             print_help()
         elif command == "project" or command == "p":
             if arg:
-                print("Loading project...")
-                project = Project(filepath=arg)
+                try:
+                    print("Loading project...")
+                    project = Project(filepath=arg)
+                except FileNotFoundError as e:
+                    print("Could not load project: {}".format(e))
             else:
                 print("Creating new project...")
                 author = input(
                     "Please provide the name of the project owner: "
                 )
                 project = Project(author=author)
-            print(project)
+
+            if project:
+                print(project)
         elif command == "run" or command == "r":
             if project:
                 module_id = None
@@ -59,8 +64,7 @@ if __name__ == "__main__":
                     )
 
                 if module_id:
-                    input_id = input("Please provide the input dataset ID: ")
-                    input_id = "5eacbf07-d9b8-4d02-b674-8badb7703e2a"
+                    input_id = input("Please provide the input dataset ID: ").strip()
                     id = None
                     try:
                         id = UUID(input_id)
