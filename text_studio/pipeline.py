@@ -11,11 +11,11 @@ class Pipeline(object):
         self.modules[module.id] = module
 
     def remove_module(self, id):
-        del self.processors[id]
+        del self.modules[id]
 
     def execute(self, data):
         """Process and return a single text document."""
         processed_data = data.instances
-        for processor in self.processors:
-            processed_data = processor.process_batch(processed_data)
+        for module in self.modules:
+            processed_data = module.process_batch(processed_data)
         data.instances = processed_data
