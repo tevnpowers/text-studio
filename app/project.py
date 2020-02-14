@@ -129,8 +129,10 @@ class Project(object):
             print("Executing module {}...".format(module.name))
 
         i = 0
-        for result in module.process_batch(data):
-            data[i][module.annotation] = result
+        for results in module.process_batch(data):
+            assert len(results) == len(module.annotations)
+            for j in range(len(results)):
+                data[i][module.annotations[j]] = results[j]
             i += 1
 
         return data
