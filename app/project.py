@@ -37,7 +37,9 @@ class Project(object):
                     content = json.loads(f.read())
                     self.parse_config(content)
             else:
-                raise FileNotFoundError("The file provided does not exist: {}".format(filepath))
+                raise FileNotFoundError(
+                    "The file provided does not exist: {}".format(filepath)
+                )
 
         self.load_datasets()
 

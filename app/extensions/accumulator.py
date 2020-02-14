@@ -12,7 +12,7 @@ class Accumulator(Transformer):
     def process_single(self, document):
         return {
             self.annotations[0]: document[self.keys[0]],
-            self.annotations[1]: document[self.keys[1]]
+            self.annotations[1]: document[self.keys[1]],
         }
 
     def process_batch(self, documents):
@@ -22,12 +22,9 @@ class Accumulator(Transformer):
         key_to_text = defaultdict(str)
         for document in documents:
             id = document[id_key]
-            key_to_text[id] += document[text_key] + '\n'
+            key_to_text[id] += document[text_key] + "\n"
 
         output = []
         for k, v in key_to_text.items():
-            output.append({
-                self.annotations[0]: k,
-                self.annotations[1]: v
-            })
+            output.append({self.annotations[0]: k, self.annotations[1]: v})
         return output

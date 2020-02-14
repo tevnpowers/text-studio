@@ -64,7 +64,9 @@ if __name__ == "__main__":
                     )
 
                 if module_id:
-                    input_id = input("Please provide the input dataset ID: ").strip()
+                    input_id = input(
+                        "Please provide the input dataset ID: "
+                    ).strip()
                     id = None
                     try:
                         id = UUID(input_id)
