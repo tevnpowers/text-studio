@@ -2,14 +2,16 @@ from collections import OrderedDict
 
 
 class Pipeline(object):
-    def __init__(self, processors=None):
-        self.processors = processors if processors else OrderedDict()
+    def __init__(self, id, name="", modules=None):
+        self.id = id
+        self.name = name
+        self.modules = modules if modules else OrderedDict()
 
-    def add_processor(self, name, processor):
-        self.processors[name] = processor
+    def add_module(self, module):
+        self.modules[module.id] = module
 
-    def remove_processor(self, name):
-        del self.processors[name]
+    def remove_module(self, id):
+        del self.processors[id]
 
     def execute(self, data):
         """Process and return a single text document."""
