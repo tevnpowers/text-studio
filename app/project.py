@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 from uuid import UUID, uuid4
 from extensions.html_parser import HtmlParser
+from extensions.accumulator import Accumulator
 
 from text_studio.dataset import Dataset
 from text_studio.pipeline import Pipeline
@@ -31,9 +32,12 @@ class Project(object):
         self.pipelines = {}
 
         if filepath:
-            with open(filepath, "r") as f:
-                content = json.loads(f.read())
-                self.parse_config(content)
+            if os.path.exists(filepath):
+                with open(filepath, "r") as f:
+                    content = json.loads(f.read())
+                    self.parse_config(content)
+            else:
+                raise FileNotFoundError("The file provided does not exist: {}".format(filepath))
 
         self.load_datasets()
 
@@ -78,12 +82,16 @@ class Project(object):
 
     def add_module(self, module_info):
         if module_info["name"] == "HtmlParser":
-            id = UUID(module_info["id"])
-            module_info["config"]["id"] = id
-            kwargs = module_info["config"]
-            module = HtmlParser()
-            module.setup(**kwargs)
-            self.modules[id] = module
+            module_class = HtmlParser
+        elif module_info["name"] == "Accumulator":
+            module_class = Accumulator
+
+        id = UUID(module_info["id"])
+        module_info["config"]["id"] = id
+        kwargs = module_info["config"]
+        module = module_class()
+        module.setup(**kwargs)
+        self.modules[id] = module
 
     def add_pipeline(self, info):
         pipeline = Pipeline(UUID(info["id"]), info["name"])
@@ -99,9 +107,9 @@ class Project(object):
     def run(self, id, input_data_id, output_data_path, verbose=False):
         instances = self.datasets[input_data_id].instances[:1000]
         if id in self.modules:
-            self._run_module(id, instances, verbose)
+            instances = self._run_module(id, instances, verbose)
         elif id in self.pipelines:
-            self._run_pipeline(id, instances, verbose)
+            instances = self._run_pipeline(id, instances, verbose)
         else:
             raise KeyError(
                 "The provided ID does not exist in project modules or pipelines."
@@ -136,7 +144,8 @@ class Project(object):
     def _run_pipeline(self, id, data, verbose=False):
         print("Executing pipeline {}...".format(self.pipelines[id].name))
         for id in self.pipelines[id].modules:
-            self._run_module(id, data, verbose)
+            data = self._run_module(id, data, verbose)
+        return data
 
     def _get_absolute_path(self, path):
         return os.path.join(self.directory, path)
