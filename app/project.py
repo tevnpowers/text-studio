@@ -5,6 +5,7 @@ from uuid import UUID, uuid4
 from extensions.html_parser import HtmlParser
 from extensions.accumulator import Accumulator
 from extensions.word_cloud import WordCloudGenerator
+from extensions.pos_tagger import PosTagger
 
 from text_studio.dataset import Dataset
 from text_studio.pipeline import Pipeline
@@ -120,6 +121,8 @@ class Project(object):
             module_class = HtmlParser
         elif info["name"] == "Accumulator":
             module_class = Accumulator
+        elif info["name"] == "PosTagger":
+            module_class = PosTagger
 
         id = UUID(info["id"])
         info["config"]["id"] = id
@@ -154,7 +157,7 @@ class Project(object):
             dataset.load_data("csv")
 
     def run(self, id, input_data_id, output_data_path, verbose=False):
-        instances = self.datasets[input_data_id].instances[:1000]
+        instances = self.datasets[input_data_id].instances
         if id in self.modules:
             instances = self._run_module(id, instances, verbose)
         elif id in self.actions:
@@ -208,7 +211,7 @@ class Project(object):
             if id in self.modules:
                 data = self._run_module(id, data, verbose)
             elif id in self.actions:
-                self._run_action(id, data, output_path)
+                self._run_action(id, data, output_path, verbose)
         return data
 
     def _get_absolute_path(self, path):
