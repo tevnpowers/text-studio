@@ -53,6 +53,8 @@ class Dataset(object):
                 writer.writeheader()
                 for instance in self.instances:
                     writer.writerow(instance)
+        else:
+            print("Empty dataset. Skipping file writing.")
 
     def save(self):
         print("Saving dataset {}...".format(self.file_path))
