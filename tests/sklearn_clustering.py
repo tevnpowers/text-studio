@@ -21,7 +21,9 @@ import numpy as np
 
 
 # Display progress logs on stdout
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s"
+)
 
 # parse commandline arguments
 op = OptionParser()
@@ -83,7 +85,12 @@ if len(args) > 0:
 
 # #############################################################################
 # Load some categories from the training set
-categories = ["alt.atheism", "talk.religion.misc", "comp.graphics", "sci.space"]
+categories = [
+    "alt.atheism",
+    "talk.religion.misc",
+    "comp.graphics",
+    "sci.space",
+]
 # Uncomment the following to do the analysis on all the categories
 # categories = None
 
@@ -101,7 +108,10 @@ print()
 labels = dataset.target
 true_k = np.unique(labels).shape[0]
 
-print("Extracting features from the training dataset " "using a sparse vectorizer")
+print(
+    "Extracting features from the training dataset "
+    "using a sparse vectorizer"
+)
 t0 = time()
 if opts.use_hashing:
     if opts.use_idf:
@@ -150,7 +160,9 @@ if opts.n_components:
 
     explained_variance = svd.explained_variance_ratio_.sum()
     print(
-        "Explained variance of the SVD step: {}%".format(int(explained_variance * 100))
+        "Explained variance of the SVD step: {}%".format(
+            int(explained_variance * 100)
+        )
     )
 
     print()
@@ -186,7 +198,10 @@ print()
 print("Homogeneity: %0.3f" % metrics.homogeneity_score(labels, km.labels_))
 print("Completeness: %0.3f" % metrics.completeness_score(labels, km.labels_))
 print("V-measure: %0.3f" % metrics.v_measure_score(labels, km.labels_))
-print("Adjusted Rand-Index: %.3f" % metrics.adjusted_rand_score(labels, km.labels_))
+print(
+    "Adjusted Rand-Index: %.3f"
+    % metrics.adjusted_rand_score(labels, km.labels_)
+)
 print(
     "Silhouette Coefficient: %0.3f"
     % metrics.silhouette_score(X, km.labels_, sample_size=1000)

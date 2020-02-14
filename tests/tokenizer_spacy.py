@@ -8,7 +8,9 @@ from text_studio.transformer import Transformer
 class SpacyTokenizer(Transformer):
     def setup(self, stopwords=None, punct=None, lower=True, strip=True):
         spacy.cli.download("en_core_web_sm")
-        self.nlp = spacy.load("en_core_web_sm", disable=["parser", "tagger", "ner"])
+        self.nlp = spacy.load(
+            "en_core_web_sm", disable=["parser", "tagger", "ner"]
+        )
         self.lower = lower
         self.punct = punct or set(string.punctuation)
 

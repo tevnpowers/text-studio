@@ -6,7 +6,12 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.linear_model import SGDClassifier
 from sklearn.naive_bayes import MultinomialNB
 
-categories = ["alt.atheism", "soc.religion.christian", "comp.graphics", "sci.med"]
+categories = [
+    "alt.atheism",
+    "soc.religion.christian",
+    "comp.graphics",
+    "sci.med",
+]
 
 
 # EXTRACT
@@ -40,7 +45,12 @@ print("Training classifier...")
 # clf = MultinomialNB().fit(X_train_tfidf, twenty_train.target)
 parameters = {"alpha": (1e-2, 1e-3)}
 clf = SGDClassifier(
-    loss="hinge", penalty="l2", alpha=1e-3, random_state=42, max_iter=5, tol=None
+    loss="hinge",
+    penalty="l2",
+    alpha=1e-3,
+    random_state=42,
+    max_iter=5,
+    tol=None,
 ).fit(X_train_tfidf, twenty_train.target)
 
 # Predict
