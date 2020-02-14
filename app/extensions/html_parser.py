@@ -18,13 +18,20 @@ class TextStudioHTMLParser(HTMLParser):
 
 
 class HtmlParser(Transformer):
-    def setup(self, key=""):
-        self.parser = TextStudioHTMLParser()
+    def setup(self, *, id, name, key, annotation):
+        self.id = id
+        self.name = name
         self.key = key
+        self.annotation = annotation
+        self.parser = TextStudioHTMLParser()
+
+    def clear(self):
+        self.parser.reset()
+        self.parser.content = ""
 
     def process_single(self, document):
-        self.parser.reset()
-        self.parser.feed(self.document_text(document)[:1000])
+        self.clear()
+        self.parser.feed(self.document_text(document))
         return self.parser.content
 
     def document_text(self, document):
