@@ -47,7 +47,7 @@
                 "name": "Tagger",
                 "keys": ["text"],
                 "annotations": ["tagged_tokens", "filtered_text"],
-                "filters": ["NN", "NNS", "NNP", "NNPS"]
+                "filters": ["NNP", "NNPS"]
             }
         }
     ],
