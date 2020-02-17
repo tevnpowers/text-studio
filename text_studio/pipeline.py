@@ -16,12 +16,13 @@ class Pipeline(object):
     def remove_component(self, id):
         del self.components[id]
 
-    def execute(self, data):
-        """Process and return a single text document."""
-        processed_data = data.instances
-        for component in self.components:
+    def execute(self, data, output_path, verbose=False):
+        for id, component in self.components.items():
+            if verbose:
+                print("Executing component {}...".format(component.name))
+
             if isinstance(component, Transformer):
-                processed_data = component.process_batch(processed_data)
+                data = component.process_batch(data)
             elif isinstance(component, Action):
-                component.process_batch(processed_data)
-        data.instances = processed_data
+                component.process_batch(data, output_path)
+        return data

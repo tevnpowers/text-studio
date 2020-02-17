@@ -207,12 +207,9 @@ class Project(object):
 
     def _run_pipeline(self, id, data, output_path, verbose=False):
         print("Executing pipeline {}...".format(self.pipelines[id].name))
-        for id in self.pipelines[id].components:
-            if id in self.modules:
-                data = self._run_module(id, data, verbose)
-            elif id in self.actions:
-                self._run_action(id, data, output_path, verbose)
-        return data
+        return self.pipelines[id].execute(
+            data, self._get_absolute_path(output_path), verbose
+        )
 
     def _get_absolute_path(self, path):
         return os.path.join(self.directory, path)
