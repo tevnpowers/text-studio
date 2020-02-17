@@ -192,10 +192,7 @@ class Project(object):
         if verbose:
             print("Executing module {}...".format(module.name))
 
-        output = []
-        for result in module.process_batch(data):
-            output.append(result)
-        return output
+        return module.process_batch(data)
 
     def _run_action(self, id, data, output_path, verbose=False):
         action = self.actions[id]

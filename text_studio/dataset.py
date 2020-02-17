@@ -1,5 +1,6 @@
 import csv
 import sys
+from types import GeneratorType
 from sklearn.model_selection import train_test_split as tts
 
 csv.field_size_limit(sys.maxsize)
@@ -44,13 +45,22 @@ class Dataset(object):
             return
 
         if self.instances:
-            keys = self.instances[0].keys()
             with open(file_path, "w") as outputfile:
+                is_generator = isinstance(self.instances, GeneratorType)
+                if is_generator:
+                    first_instance = next(self.instances)
+                else:
+                    first_instance = self.instances[0]
+
+                keys = first_instance.keys()
                 writer = csv.DictWriter(
                     outputfile, delimiter=delimiter, fieldnames=keys
                 )
 
                 writer.writeheader()
+                if is_generator:
+                    writer.writerow(first_instance)
+
                 for instance in self.instances:
                     writer.writerow(instance)
         else:
