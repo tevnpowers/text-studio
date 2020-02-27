@@ -3,7 +3,7 @@ from text_studio.annotator import Annotator
 
 
 class Accumulator(Annotator):
-    def setup(self, *, id, name, keys, annotations):
+    def __init__(self, *, id, name, keys, annotations):
         self.id = id
         self.name = name
         self.keys = keys

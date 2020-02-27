@@ -18,7 +18,7 @@ class TextStudioHTMLParser(HTMLParser):
 
 
 class HtmlParser(Annotator):
-    def setup(self, *, id, name, keys, annotations):
+    def __init__(self, *, id, name, keys, annotations):
         self.id = id
         self.name = name
         self.keys = keys

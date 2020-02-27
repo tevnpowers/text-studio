@@ -3,7 +3,7 @@ from nltk import word_tokenize, pos_tag, data
 
 
 class PosTagger(Annotator):
-    def setup(self, *, id, name, keys, filters, annotations):
+    def __init__(self, *, id, name, keys, filters, annotations):
         self.id = id
         self.name = name
         self.keys = keys

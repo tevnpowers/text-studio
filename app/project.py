@@ -168,8 +168,7 @@ class Project(object):
         id = UUID(info["id"])
         info["config"]["id"] = id
         kwargs = info["config"]
-        annotator = annotator_class()
-        annotator.setup(**kwargs)
+        annotator = annotator_class(**kwargs)
         self.annotators[id] = annotator
 
     def add_action(self, info):
@@ -183,8 +182,7 @@ class Project(object):
         id = UUID(info["id"])
         info["config"]["id"] = id
         kwargs = info["config"]
-        action = action_class()
-        action.setup(**kwargs)
+        action = action_class(**kwargs)
         self.actions[id] = action
 
     def add_pipeline(self, info):

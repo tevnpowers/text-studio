@@ -4,11 +4,8 @@ import abc
 class Action(object):
     __metaclass__ = abc.ABCMeta
 
-    def __init__(self):
-        self.metadata = None
-
     @abc.abstractmethod
-    def setup(self, *, id, name, keys):
+    def __init__(self, *, id, name, keys):
         """Initialize all parameter values for the processor's settings."""
         self.id = id
         self.name = name
