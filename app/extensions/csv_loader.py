@@ -9,7 +9,6 @@ csv.field_size_limit(sys.maxsize)
 class CsvLoader(DataLoader):
     @staticmethod
     def load(file, delimiter=","):
-        print("loading file!")
         # TO DO: Add basic error checking to validate that the file exists
         instances = []
         reader = csv.DictReader(file, delimiter=delimiter)
@@ -19,9 +18,7 @@ class CsvLoader(DataLoader):
 
     @staticmethod
     def save(instances, file, delimiter=","):
-        print("saving file!")
         if instances:
-            print("got some instances!")
             is_generator = isinstance(instances, GeneratorType)
             if is_generator:
                 first_instance = next(instances)
