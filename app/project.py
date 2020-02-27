@@ -6,7 +6,7 @@ from extensions.html_parser import HtmlParser
 from extensions.accumulator import Accumulator
 from extensions.word_cloud import WordCloudGenerator
 from extensions.pos_tagger import PosTagger
-
+from extensions.csv_loader import CsvLoader
 from text_studio.dataset import Dataset
 from text_studio.pipeline import Pipeline
 
@@ -30,6 +30,7 @@ class Project(object):
         }
 
         self.datasets = {}
+        self.data_loaders = {}
         self.modules = {}
         self.actions = {}
         self.pipelines = {}
@@ -58,6 +59,11 @@ class Project(object):
             self.metadata["created"],
             self.metadata["saved"],
         )
+
+        if self.data_loaders:
+            description += "\nData Loaders:\n----------\n"
+            for id, loader in self.data_loaders.items():
+                description += "{}\t\t{}\n".format(loader["name"], id)
 
         if self.datasets:
             description += "\nDatasets:\n----------\n"
@@ -96,6 +102,10 @@ class Project(object):
                 if key in config["metadata"]:
                     self.metadata[key] = config["metadata"][key]
 
+        if "loaders" in config:
+            for info in config["loaders"]:
+                self.add_data_loader(info)
+
         if "data" in config:
             for info in config["data"]:
                 self.add_dataset(info)
@@ -112,9 +122,24 @@ class Project(object):
             for info in config["pipelines"]:
                 self.add_pipeline(info)
 
+    def add_data_loader(self, info):
+        if info["name"] == "CsvLoader":
+            loader_class = CsvLoader
+        else:
+            raise ValueError("Could not find a Dataset Loader named {}".format(info["name"]))
+        id = UUID(info["id"])
+        self.data_loaders[id] = {"name": info["name"], "loader": loader_class, "kwargs": info["config"]}
+
     def add_dataset(self, info):
         id = UUID(info["id"])
-        self.datasets[id] = Dataset(id, self._get_absolute_path(info["path"]))
+        loader = None
+        if info["config"]["loader_id"]:
+            loader_id = UUID(info["config"]["loader_id"])
+            if loader_id in self.data_loaders:
+                loader = self.data_loaders[loader_id]["loader"]
+            else:
+                raise ValueError("Could not find a Dataset Loader with ID {}".format(loader_id))
+        self.datasets[id] = Dataset(id, loader=loader, file_path=self._get_absolute_path(info["path"]))
 
     def add_module(self, info):
         if info["name"] == "HtmlParser":
@@ -123,6 +148,8 @@ class Project(object):
             module_class = Accumulator
         elif info["name"] == "PosTagger":
             module_class = PosTagger
+        else:
+            raise ValueError("Could not find a Module named {}".format(info["name"]))
 
         id = UUID(info["id"])
         info["config"]["id"] = id
@@ -134,6 +161,8 @@ class Project(object):
     def add_action(self, info):
         if info["name"] == "WordCloud":
             action_class = WordCloudGenerator
+        else:
+            raise ValueError("Could not find an Action named {}".format(info["name"]))
 
         id = UUID(info["id"])
         info["config"]["id"] = id
@@ -153,8 +182,8 @@ class Project(object):
         self.pipelines[pipeline.id] = pipeline
 
     def load_datasets(self):
-        for fielname, dataset in self.datasets.items():
-            dataset.load_data("csv")
+        for filename, dataset in self.datasets.items():
+            dataset.load()
 
     def run(self, id, input_data_id, output_data_path, verbose=False):
         instances = self.datasets[input_data_id].instances
@@ -182,7 +211,7 @@ class Project(object):
             if matching_id:
                 dataset = self.datasets[matching_id]
             else:
-                dataset = Dataset(uuid4(), absolute_path)
+                dataset = Dataset(uuid4(), CsvLoader, absolute_path)
             dataset.instances = instances
             self.datasets[dataset.id] = dataset
             self.datasets[dataset.id].save()
