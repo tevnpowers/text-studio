@@ -26,7 +26,7 @@ def print_help():
         + "help (h)\t\t\tShow help.\n"
         + "info (i)\t\t\tShow project info\n"
         + "project (p) <file path>\t\tCreate a project or open the project at the specified file path.\n"
-        + "run (r) <id>\t\t\tRun the project module or pipeline with the specified ID.\n"
+        + "run (r) <id>\t\t\tRun the project annotator or pipeline with the specified ID.\n"
         + "save (s) <file path>\t\tSave a project to its current file or the provided file path.\n"
         + "quit (q)\t\t\tQuit the application."
     )
@@ -61,15 +61,15 @@ if __name__ == "__main__":
                 print('Run "project" command to load a project.')
         elif command == "run" or command == "r":
             if project:
-                module_id = None
+                annotator_id = None
                 try:
-                    module_id = UUID(arg)
+                    annotator_id = UUID(arg)
                 except ValueError:
                     print(
                         "Please provide a valid ID (hexadecimal UUID string)."
                     )
 
-                if module_id:
+                if annotator_id:
                     input_id = input(
                         "Please provide the input dataset ID: "
                     ).strip()
@@ -87,16 +87,16 @@ if __name__ == "__main__":
                         ).strip()
 
                         try:
-                            print("Running module...")
+                            print("Running annotator...")
                             project.run(
-                                module_id, id, output_path, verbose=True
+                                annotator_id, id, output_path, verbose=True
                             )
                             print("Execution complete...")
                         except KeyError as e:
                             print("Unsuccessful execution: {}".format(e))
             else:
                 print(
-                    "Cannot execute modules until a project is loaded. Please load or create a project."
+                    "Cannot execute annotators until a project is loaded. Please load or create a project."
                 )
 
         elif command == "save":

@@ -25,13 +25,13 @@ class Project(object):
             "created": get_current_time(),
             "saved": "",
             "data": [],
-            "modules": [],
+            "annotators": [],
             "pipelines": [],
         }
 
         self.datasets = {}
         self.data_loaders = {}
-        self.modules = {}
+        self.annotators = {}
         self.actions = {}
         self.pipelines = {}
 
@@ -70,9 +70,9 @@ class Project(object):
             for id, dataset in self.datasets.items():
                 description += "{}\t\t{}\n".format(dataset.file_path, id)
 
-        if self.modules:
+        if self.annotators:
             description += self.get_project_component_descriptions(
-                "Modules", self.modules
+                "Annotators", self.annotators
             )
 
         if self.actions:
@@ -110,9 +110,9 @@ class Project(object):
             for info in config["data"]:
                 self.add_dataset(info)
 
-        if "modules" in config:
-            for module in config["modules"]:
-                self.add_module(module)
+        if "annotators" in config:
+            for annotator in config["annotators"]:
+                self.add_annotator(annotator)
 
         if "actions" in config:
             for action in config["actions"]:
@@ -153,24 +153,24 @@ class Project(object):
             id, loader=loader, file_path=self._get_absolute_path(info["path"])
         )
 
-    def add_module(self, info):
+    def add_annotator(self, info):
         if info["name"] == "HtmlParser":
-            module_class = HtmlParser
+            annotator_class = HtmlParser
         elif info["name"] == "Accumulator":
-            module_class = Accumulator
+            annotator_class = Accumulator
         elif info["name"] == "PosTagger":
-            module_class = PosTagger
+            annotator_class = PosTagger
         else:
             raise ValueError(
-                "Could not find a Module named {}".format(info["name"])
+                "Could not find a annotator named {}".format(info["name"])
             )
 
         id = UUID(info["id"])
         info["config"]["id"] = id
         kwargs = info["config"]
-        module = module_class()
-        module.setup(**kwargs)
-        self.modules[id] = module
+        annotator = annotator_class()
+        annotator.setup(**kwargs)
+        self.annotators[id] = annotator
 
     def add_action(self, info):
         if info["name"] == "WordCloud":
@@ -191,8 +191,8 @@ class Project(object):
         pipeline = Pipeline(UUID(info["id"]), info["name"])
         for id in info["components"]:
             id = UUID(id)
-            if id in self.modules:
-                pipeline.add_component(self.modules[id])
+            if id in self.annotators:
+                pipeline.add_component(self.annotators[id])
             elif id in self.actions:
                 pipeline.add_component(self.actions[id])
         self.pipelines[pipeline.id] = pipeline
@@ -203,8 +203,8 @@ class Project(object):
 
     def run(self, id, input_data_id, output_data_path, verbose=False):
         instances = self.datasets[input_data_id].instances
-        if id in self.modules:
-            instances = self._run_module(id, instances, verbose)
+        if id in self.annotators:
+            instances = self._run_annotator(id, instances, verbose)
         elif id in self.actions:
             self._run_action(id, instances, output_data_path, verbose)
         elif id in self.pipelines:
@@ -213,7 +213,7 @@ class Project(object):
             )
         else:
             raise KeyError(
-                "The provided ID does not exist in project modules or pipelines."
+                "The provided ID does not exist in project annotators, actions, or pipelines."
             )
 
         if output_data_path and id not in self.actions:
@@ -232,12 +232,12 @@ class Project(object):
             self.datasets[dataset.id] = dataset
             self.datasets[dataset.id].save()
 
-    def _run_module(self, id, data, verbose=False):
-        module = self.modules[id]
+    def _run_annotator(self, id, data, verbose=False):
+        annotator = self.annotators[id]
         if verbose:
-            print("Executing module {}...".format(module.name))
+            print("Executing annotator {}...".format(annotator.name))
 
-        return module.process_batch(data)
+        return annotator.process_batch(data)
 
     def _run_action(self, id, data, output_path, verbose=False):
         action = self.actions[id]

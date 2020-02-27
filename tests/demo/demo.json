@@ -36,7 +36,7 @@
             }
         }
     ],
-    "modules": [
+    "annotators": [
         {
             "id": "4991a5d6-b64c-4dd6-bedc-87b354b575bf",
             "name": "HtmlParser",
