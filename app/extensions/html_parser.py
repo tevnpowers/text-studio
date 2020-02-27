@@ -1,6 +1,6 @@
 from html.parser import HTMLParser
 
-from text_studio.transformer import Transformer
+from text_studio.annotator import Annotator
 
 
 class TextStudioHTMLParser(HTMLParser):
@@ -17,7 +17,7 @@ class TextStudioHTMLParser(HTMLParser):
         self.content += data
 
 
-class HtmlParser(Transformer):
+class HtmlParser(Annotator):
     def setup(self, *, id, name, keys, annotations):
         self.id = id
         self.name = name

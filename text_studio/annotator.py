@@ -1,7 +1,7 @@
 import abc
 
 
-class Transformer(object):
+class Annotator(object):
     __metaclass__ = abc.ABCMeta
 
     def __init__(self):

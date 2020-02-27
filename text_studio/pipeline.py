@@ -1,7 +1,7 @@
 from collections import OrderedDict
 
 from text_studio.action import Action
-from text_studio.transformer import Transformer
+from text_studio.annotator import Annotator
 
 
 class Pipeline(object):
@@ -21,7 +21,7 @@ class Pipeline(object):
             if verbose:
                 print("Executing component {}...".format(component.name))
 
-            if isinstance(component, Transformer):
+            if isinstance(component, Annotator):
                 data = component.process_batch(data)
             elif isinstance(component, Action):
                 component.process_batch(data, output_path)

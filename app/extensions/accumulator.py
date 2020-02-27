@@ -1,8 +1,8 @@
 from collections import defaultdict
-from text_studio.transformer import Transformer
+from text_studio.annotator import Annotator
 
 
-class Accumulator(Transformer):
+class Accumulator(Annotator):
     def setup(self, *, id, name, keys, annotations):
         self.id = id
         self.name = name

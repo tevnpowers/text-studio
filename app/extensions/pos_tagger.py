@@ -1,8 +1,8 @@
-from text_studio.transformer import Transformer
+from text_studio.annotator import Annotator
 from nltk import word_tokenize, pos_tag, data
 
 
-class PosTagger(Transformer):
+class PosTagger(Annotator):
     def setup(self, *, id, name, keys, filters, annotations):
         self.id = id
         self.name = name
