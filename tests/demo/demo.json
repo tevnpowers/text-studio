@@ -4,18 +4,36 @@
         "created":"'2020-02-05T70:00'",
         "saved":"'2020-02-06T00:50'"
     },
+    "loaders": [
+        {
+            "id": "05eea941-5ae7-4acf-884a-dfb863755b79",
+            "name": "CsvLoader",
+            "config": {
+                "delimiter": ","
+            }
+        }
+    ],
     "data": [
         {
             "id": "5eacbf07-d9b8-4d02-b674-8badb7703e2a",
-            "path": "../data/story_content.csv"
+            "path": "../data/story_content.csv",
+            "config": {
+                "loader_id": "05eea941-5ae7-4acf-884a-dfb863755b79"
+            }
         },
         {
             "id": "cf9c5dac-0f8d-4a57-a176-9130068f48f1",
-            "path": "../data/story_content_cleaned.csv"
+            "path": "../data/story_content_cleaned.csv",
+            "config": {
+                "loader_id": "05eea941-5ae7-4acf-884a-dfb863755b79"
+            }
         },
         {
             "id": "857292df-7cb7-4d17-a95a-bd570be378be",
-            "path": "../data/fandoms.csv"
+            "path": "../data/fandoms.csv",
+            "config": {
+                "loader_id": "05eea941-5ae7-4acf-884a-dfb863755b79"
+            }
         }
     ],
     "modules": [
