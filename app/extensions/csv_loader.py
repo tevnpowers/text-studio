@@ -29,9 +29,7 @@ class CsvLoader(DataLoader):
                 first_instance = instances[0]
 
             keys = first_instance.keys()
-            writer = csv.DictWriter(
-                file, delimiter=delimiter, fieldnames=keys
-            )
+            writer = csv.DictWriter(file, delimiter=delimiter, fieldnames=keys)
 
             writer.writeheader()
             if is_generator:

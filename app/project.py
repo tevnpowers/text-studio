@@ -126,9 +126,15 @@ class Project(object):
         if info["name"] == "CsvLoader":
             loader_class = CsvLoader
         else:
-            raise ValueError("Could not find a Dataset Loader named {}".format(info["name"]))
+            raise ValueError(
+                "Could not find a Dataset Loader named {}".format(info["name"])
+            )
         id = UUID(info["id"])
-        self.data_loaders[id] = {"name": info["name"], "loader": loader_class, "kwargs": info["config"]}
+        self.data_loaders[id] = {
+            "name": info["name"],
+            "loader": loader_class,
+            "kwargs": info["config"],
+        }
 
     def add_dataset(self, info):
         id = UUID(info["id"])
@@ -138,8 +144,14 @@ class Project(object):
             if loader_id in self.data_loaders:
                 loader = self.data_loaders[loader_id]["loader"]
             else:
-                raise ValueError("Could not find a Dataset Loader with ID {}".format(loader_id))
-        self.datasets[id] = Dataset(id, loader=loader, file_path=self._get_absolute_path(info["path"]))
+                raise ValueError(
+                    "Could not find a Dataset Loader with ID {}".format(
+                        loader_id
+                    )
+                )
+        self.datasets[id] = Dataset(
+            id, loader=loader, file_path=self._get_absolute_path(info["path"])
+        )
 
     def add_module(self, info):
         if info["name"] == "HtmlParser":
@@ -149,7 +161,9 @@ class Project(object):
         elif info["name"] == "PosTagger":
             module_class = PosTagger
         else:
-            raise ValueError("Could not find a Module named {}".format(info["name"]))
+            raise ValueError(
+                "Could not find a Module named {}".format(info["name"])
+            )
 
         id = UUID(info["id"])
         info["config"]["id"] = id
@@ -162,7 +176,9 @@ class Project(object):
         if info["name"] == "WordCloud":
             action_class = WordCloudGenerator
         else:
-            raise ValueError("Could not find an Action named {}".format(info["name"]))
+            raise ValueError(
+                "Could not find an Action named {}".format(info["name"])
+            )
 
         id = UUID(info["id"])
         info["config"]["id"] = id

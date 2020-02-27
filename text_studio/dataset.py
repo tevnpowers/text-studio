@@ -15,7 +15,11 @@ class Dataset(object):
                 self.instances = self.loader.load(file, **kwargs)
 
     def save(self, **kwargs):
-        print('Attempting to save myself!\t{}\t{}'.format(self.loader, self.file_path))
+        print(
+            "Attempting to save myself!\t{}\t{}".format(
+                self.loader, self.file_path
+            )
+        )
         if self.loader and self.file_path:
             with open(self.file_path, "w") as file:
                 self.loader.save(self.instances, file, **kwargs)
