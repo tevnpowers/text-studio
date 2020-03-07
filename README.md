@@ -18,7 +18,7 @@ The software development kit is built upon the `text-studio` Python package and 
 `pip install text-studio`
 
 From source:
-`git clone https://github.com/tevnpowers/thesis`  
+`git clone https://github.com/tevnpowers/text-studio`
 
 ## Plugin Components
 The major value of *TextStudio* is the hackable design that enables the developer community to extend its core functionality to support:
@@ -30,7 +30,7 @@ The major value of *TextStudio* is the hackable design that enables the develope
 ### Data Loader
 In this system, a Data Loader is responsible for loading data that exists outside of the application into a canonical *TextStudio* data set. It must also provide the inverse functionality, to write a *TextStudio* data set to an external location.
 
-A `DataLoader` plugin is a subclass of the `text_studio.DataLoader` abstract class, and defines the following functions:
+A `DataLoader` plugin is a subclass of the `text_studio.DataLoader` abstract class, and implements the following class methods:
 
  - `load`: Create the list of data instances for a `text_studio.Dataset`from data that exists outside of the application.
      - Parameters:
@@ -51,9 +51,9 @@ A text processing pipeline is any combination of Annotator, Action, or Model com
 However, developers may write plugins for each pipeline component type further described below.
 
 #### Annotator
-A plugin that inherits from `text_studio.Annotator` runs a process which augments the input data it is give. That is, given a data instance object (Python dictionary), an annotator will add a new key value pair to the dictionary (e.g. tokenization output, part of speech tags, lemmatized version of the raw text, etc.).
+An Annotator runs a process which augments the input data it is give. That is, given a data instance object (Python dictionary), an annotator will add a new key value pair to the dictionary (e.g. tokenization output, part of speech tags, lemmatized version of the raw text, etc.).
 
-Class methods:
+An `Annotator` plugin is a subclass of the `text_studio.Annotator` abstract class, and implements the following class methods:
 - `__init__`: Configure the settings needed for the Annotator module to properly function. 
     - Parameters:
         - `keys`: the list of keys (strings) in the data instance object dictionary correspond to the values that the Annotator needs in order to extract the data required for execution.
@@ -71,9 +71,9 @@ Class methods:
         - A collection of dictionaries, where each is an augmented version of an input object, now annotated with additional information.
 
 #### Action
-A plugin that inherits from `text_studio.Action` consumes input data either individually or in bulk in order to produce an artifact about the input data, while not modifying or augmenting the input data instance(s). In this case, an artifact may be a visualization, a summary report, or any other insights that can be extracted from the provided data.
+An Action consumes input data either individually or in bulk in order to produce an artifact about the input data, while not modifying or augmenting the input data instance(s). In this case, an artifact may be a visualization, a summary report, or any other insights that can be extracted from the provided data.
 
-Class methods:
+An `Action` plugin is a subclass of the `text_studio.Action` abstract class, and implements the following class methods:
 - `__init__`: Configure the settings needed for the Action module to properly function. 
     - Parameters:
         - `keys`: the list of keys (strings) in the data instance object dictionary correspond to the values that the Action needs in order to extract the data required for execution.
