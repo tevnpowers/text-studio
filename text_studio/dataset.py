@@ -39,11 +39,35 @@ class Dataset(object):
         self.loaded = False
 
     def load(self, **kwargs):
+        """Load the dataset using the Dataset's loader.
+
+        Load the data set from its stored location,
+        populating the data instances collection. Set the
+        loaded flag to True if the instances were retrieved
+        successfully.
+
+        Parameters
+        ----------
+        **kwargs : dictionary
+            Keyword arguments passed to the DataLoader
+            to configure its settings for loading the dataset.
+        """
         if self.loader and self.file_path:
             with open(self.file_path, "r") as file:
                 self.instances = self.loader.load(file, **kwargs)
+                self.loaded = True
 
     def save(self, **kwargs):
+        """Save the dataset using the Dataset's loader.
+
+        Save the data set in its current state to a storage location.
+
+        Parameters
+        ----------
+        **kwargs : dictionary
+            Keyword arguments passed to the DataLoader
+            to configure its settings for writing the dataset.
+        """
         if self.loader and self.file_path:
             with open(self.file_path, "w") as file:
                 self.loader.save(self.instances, file, **kwargs)

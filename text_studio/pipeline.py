@@ -66,6 +66,13 @@ class Pipeline(object):
             in the pipeline.
         verbose : bool
             True if progress statements should be written to the console.
+
+        Returns
+        ----------
+        data : collection of data instances
+            The collection of input data instances, that is
+            potentially modified if there are any Annotator
+            components in the pipeline.
         """
         for id, component in self.components.items():
             if verbose:
