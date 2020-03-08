@@ -3,15 +3,17 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+short_description = "Python package that powers the TextStudio development environment where users can explore, process, model, and visualize textual data."
+
 setuptools.setup(
-    name="text-studio-tevnpowers",  # Replace with your own username
+    name="tevnpowers",  # Replace with your own username
     version="0.0.1",
     author="Tev'n Powers",
     author_email="tevnpowers@gmail.com",
-    description="Package for a hackable unified text processing application.",
+    description=short_description,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/tevnpowers/thesis",
+    url="https://github.com/tevnpowers/text-studio",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
