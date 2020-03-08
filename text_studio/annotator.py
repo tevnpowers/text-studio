@@ -29,7 +29,6 @@ class Annotator(object):
     process_batch(self, docs):
         Provide new annotations for each data instance in a collection.
     """
-
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod

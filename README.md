@@ -8,10 +8,10 @@
 2. For users with minimal software engineering or computational linguistics backgrounds, *TextStudio* provides access to a rich set of text processing systems and techniques developed by the NLP community. Using the visual editor in the desktop application, every user has the power build sophisticated text processing pipelines to extract insights from any text data set without writing a single line of code.
 
 ## Architecture
-### Desktop Application (coming Soon)
+### Desktop Application (coming soon)
 The *TextStudio* application provides a visual interface for users to inspect and visualize text data, as well as facilitates the building of text processing systems based on NLP techniques and statistical or machine learning models.
 
-### Software Development Kit (SDK) (coming Soon)
+### Software Development Kit (SDK) (coming soon)
 The software development kit is built upon the `text-studio` Python package and enables users to write and publish plugins that can be used by users of the desktop application.
 
 #### Installation (coming soon) 

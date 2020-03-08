@@ -1,7 +1,36 @@
-from sklearn.model_selection import train_test_split as tts
-
-
 class Dataset(object):
+    """Data set for text records.
+
+    A Dataset maintains the collection of data instances and metadata
+    associated with the dataset.
+
+    Parameters
+    -------
+    id : uuid
+        Unique identifier for a dataset in a TextStudio project.
+    loader : text_studio.DataLoader
+        The DataLoader object responsible for loading the data
+        from an external source and/or writing the data set to an
+        external location.
+    file_path : string
+        The file path points to the location of the data set.
+
+    Attributes
+    -------
+    instances : list of dicts
+        Collection of data instances contained in the dataset.
+    loaded : bool
+        True if all data instances in the dataset have been loaded
+        into the dataset. Data instances are not loaded from disk
+        or an external location until needed.
+
+    Methods
+    -------
+    load(self, **kwargs):
+        Load the dataset using the Dataset's loader.
+    save(self, **kwargs):
+        Save the dataset using the Dataset's loader.
+    """
     def __init__(self, id, loader=None, file_path=""):
         self.id = id
         self.loader = loader
@@ -18,13 +47,3 @@ class Dataset(object):
         if self.loader and self.file_path:
             with open(self.file_path, "w") as file:
                 self.loader.save(self.instances, file, **kwargs)
-
-    @staticmethod
-    def get_modeling_data(self, text_key, label_key):
-        x = [instance[text_key] for instance in self.instances]
-        y = [instance[label_key] for instance in self.instances]
-        return x, y
-
-    @staticmethod
-    def split_data(X, y, test_size, random_state=None):
-        return tts(X, y, test_size=test_size, random_state=random_state)
