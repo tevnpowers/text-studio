@@ -51,7 +51,7 @@ A text processing pipeline is any combination of Annotator, Action, or Model com
 However, developers may write plugins for each pipeline component type further described below.
 
 #### Annotator
-An Annotator runs a process which augments the input data it is give. That is, given a data instance object (Python dictionary), an annotator will add a new key value pair to the dictionary (e.g. tokenization output, part of speech tags, lemmatized version of the raw text, etc.).
+An Annotator runs a process which augments the input data it is given. That is, given a data instance object (Python dictionary), an annotator will add a new key value pair to the dictionary (e.g. tokenization output, part of speech tags, lemmatized version of the raw text, etc.).
 
 An `Annotator` plugin is a subclass of the `text_studio.Annotator` abstract class, and implements the following class methods:
 - `__init__`: Configure the settings needed for the Annotator module to properly function. 
