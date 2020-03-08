@@ -1,11 +1,11 @@
+> This project is currently under development by [Tev'n Powers](https://www.linkedin.com/in/tevnpowers) to satisfy the Master's Thesis component of the [University of Washington's Master's in Computational Linguistics](https://www.compling.uw.edu/). Special thanks to my thesis committee: [Cecilia Aragon](https://faculty.washington.edu/aragon/) (advisor) and [Emily Bender](https://faculty.washington.edu/ebender/) (reader). To share any questions, thoughts, or concerns please contact tevn@uw.edu or make a [GitHub issue](https://github.com/tevnpowers/text-studio/issues).
+
 # TextStudio
 *TextStudio* is a text processing architecture comprised of the `text-studio` Python library, software development kit (SDK), and desktop application. Each of these components contributes to creating the development environment where users can explore, process, model, and visualize textual data.
 
 *TextStudio* is designed for the following audiences and purposes:
 1. Experienced natural language processing practitioners (e.g. computational linguists, software engineers, data scientists, etc.) benefit from *TextStudio*'s improvement to the current developer experience by removing inefficiencies in the experimentation workflow. Built on the premise of collaboration, *TextStudio* simplifies discovery of NLP, statistical modeling, and machine learning modules for text data and enables seamless module integration into text processing pipelines via a plugin extensible architecture.
 2. For users with minimal software engineering or computational linguistics backgrounds, *TextStudio* provides access to a rich set of text processing systems and techniques developed by the NLP community. Using the visual editor in the desktop application, every user has the power build sophisticated text processing pipelines to extract insights from any text data set without writing a single line of code.
-
-> This project is currently under development by [Tev'n Powers](https://www.linkedin.com/in/tevnpowers) to satisfy the Master's Thesis component of the [University of Washington's Master's in Computational Linguistics](https://www.compling.uw.edu/). Special thanks to my thesis committee: [Cecilia Aragon](https://faculty.washington.edu/aragon/) (advisor) and [Emily Bender](https://faculty.washington.edu/ebender/) (reader). To share any questions, thoughts, or concerns please contact tevn@uw.edu or make a [GitHub issue](https://github.com/tevnpowers/text-studio/issues).
 
 ## Architecture
 ### Desktop Application (coming Soon)
