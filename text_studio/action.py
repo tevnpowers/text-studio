@@ -1,3 +1,12 @@
+"""Extract insight from textual data.
+
+An Action consumes textual data either individually or in bulk
+in order to produce an artifact, while not modifying or
+augmenting the input data instance(s).
+
+An artifact may be a visualization, a summary report, or any
+other insights that can be extracted from the provided data.
+"""
 import abc
 
 

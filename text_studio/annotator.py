@@ -1,3 +1,10 @@
+"""Provide annotation on textual data.
+
+An Annotator runs a process which augments the provided input data.
+Given a data instance object (Python dictionary), an annotator will
+add a new key value pair to the dictionary.
+(e.g. tokenization output, part of speech tags, etc.).
+"""
 import abc
 
 
@@ -29,6 +36,7 @@ class Annotator(object):
     process_batch(self, docs):
         Provide new annotations for each data instance in a collection.
     """
+
     __metaclass__ = abc.ABCMeta
 
     @abc.abstractmethod

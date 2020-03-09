@@ -1,3 +1,9 @@
+"""Sequence of text processing components.
+
+A text processing pipeline is a sequence of text processing components,
+namely text_studio.Annotator and text_studio.Action objects that are
+executed in order to produce newly annotated data and/or insights.
+"""
 from collections import OrderedDict
 
 from text_studio.action import Action
@@ -29,6 +35,7 @@ class Pipeline(object):
     execute(self, data, output_path, verbose):
         Execute the text processing pipeline on data.
     """
+
     def __init__(self, id, name="", components=None):
         self.id = id
         self.name = name

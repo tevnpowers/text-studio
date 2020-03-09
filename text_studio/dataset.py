@@ -1,3 +1,10 @@
+"""Data set for text records.
+
+A Dataset maintains the collection of data instances and metadata
+associated with the dataset.
+"""
+
+
 class Dataset(object):
     """Data set for text records.
 
@@ -31,6 +38,7 @@ class Dataset(object):
     save(self, **kwargs):
         Save the dataset using the Dataset's loader.
     """
+
     def __init__(self, id, loader=None, file_path=""):
         self.id = id
         self.loader = loader

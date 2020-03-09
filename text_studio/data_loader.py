@@ -1,3 +1,10 @@
+"""Load and save data set instances.
+
+A Data Loader is responsible for loading data that exists
+outside of a text_studio.Dataset object, into a text_studio.Dataset.
+It must also provide the inverse functionality, to write the data
+instances from a text_studio.Dataset object to an external location.
+"""
 import abc
 
 
