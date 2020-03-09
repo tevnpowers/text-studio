@@ -1,20 +1,20 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("text_studio/README.md", "r") as fh:
     long_description = fh.read()
 
 short_description = "Python package that powers the TextStudio development environment where users can explore, process, model, and visualize textual data."
 
 setuptools.setup(
-    name="tevnpowers",  # Replace with your own username
-    version="0.0.1",
+    name="text-studio",
+    version="0.0.1-alpha",
     author="Tev'n Powers",
     author_email="tevnpowers@gmail.com",
     description=short_description,
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/tevnpowers/text-studio",
-    packages=setuptools.find_packages(),
+    packages=['text_studio'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
