@@ -1,4 +1,7 @@
+[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs) [![PyPI version](https://badge.fury.io/py/text-studio.svg)](https://badge.fury.io/py/text-studio) [![Issues](https://img.shields.io/github/issues-raw/tevnpowers/text-studio.svg?maxAge=25000)](https://github.com/tevnpowers/text-studio/issues)
+
 > This project is currently under development by [Tev'n Powers](https://www.linkedin.com/in/tevnpowers) to satisfy the Master's Thesis component of the [University of Washington's Master's in Computational Linguistics](https://www.compling.uw.edu/). Special thanks to my thesis committee: [Cecilia Aragon](https://faculty.washington.edu/aragon/) (advisor) and [Emily Bender](https://faculty.washington.edu/ebender/) (reader). To share any questions, thoughts, or concerns please contact tevn@uw.edu or make a [GitHub issue](https://github.com/tevnpowers/text-studio/issues).
+
 
 # TextStudio
 *TextStudio* is a text processing architecture comprised of the `text-studio` Python package, software development kit (SDK), and desktop application. Each of these components contributes to creating the development environment where users can explore, process, model, and visualize textual data.
