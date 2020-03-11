@@ -1,6 +1,6 @@
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tevnpowers/text-studio/blob/master/LICENSE) [![PyPI version](https://badge.fury.io/py/text-studio.svg)](https://badge.fury.io/py/text-studio) [![Issues](https://img.shields.io/github/issues-raw/tevnpowers/text-studio.svg?maxAge=25000)](https://github.com/tevnpowers/text-studio/issues)
 
-> This project is currently under development by [Tev'n Powers](https://www.linkedin.com/in/tevnpowers) to satisfy the Master's Thesis component of the [University of Washington's Master's in Computational Linguistics](https://www.compling.uw.edu/). Special thanks to my thesis committee: [Cecilia Aragon](https://faculty.washington.edu/aragon/) (advisor) and [Emily Bender](https://faculty.washington.edu/ebender/) (reader). To share any questions, thoughts, or concerns please contact tevn@uw.edu or make a [GitHub issue](https://github.com/tevnpowers/text-studio/issues).
+> This package is currently under development by [Tev'n Powers](https://www.linkedin.com/in/tevnpowers) to satisfy the Master's Thesis component of the [University of Washington's Master's in Computational Linguistics](https://www.compling.uw.edu/). Special thanks to my thesis committee: [Cecilia Aragon](https://faculty.washington.edu/aragon/) (advisor) and [Emily Bender](https://faculty.washington.edu/ebender/) (reader). To share any questions, thoughts, or concerns please contact tevn@uw.edu or make a [GitHub issue](https://github.com/tevnpowers/text-studio/issues).
 
 
 # TextStudio
@@ -11,13 +11,13 @@
 2. For users with minimal software engineering or computational linguistics backgrounds, *TextStudio* provides access to a rich set of text processing systems and techniques developed by the NLP community. Using the visual editor in the desktop application, every user has the power build sophisticated text processing pipelines to extract insights from any text data set without writing a single line of code.
 
 ## Architecture
-### Desktop Application (coming soon)
-The *TextStudio* application provides a visual interface for users to inspect and visualize text data, as well as facilitates the building of text processing systems based on NLP techniques and statistical or machine learning models.
+### Desktop Application
+The [*TextStudio* application](https://github.com/tevnpowers/text-studio-app) provides a visual interface for users to inspect and visualize text data, as well as facilitates the building of text processing systems based on NLP techniques and statistical or machine learning models.
 
 ### Software Development Kit (SDK) (coming soon)
 The software development kit is built upon the `text-studio` Python package and enables users to write and publish plugins that can be used by users of the desktop application.
 
-#### Installation (coming soon) 
+#### Installation
 `pip install text-studio`
 
 From source:
